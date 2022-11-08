@@ -941,6 +941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50db3dba1ff53e943a94a9ce25ea3abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
   rb: {fileID: 1142506928}
   addForceValue: 4000
 --- !u!114 &1787375280
