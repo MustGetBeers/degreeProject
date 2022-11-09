@@ -11565,6 +11565,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1787375278, guid: 210ce26e2a425054eacd9d3f2f6d5188, type: 3}
+      propertyPath: snowTerrain
+      value: 
+      objectReference: {fileID: 1340425032}
     - target: {fileID: 300428751769309622, guid: 210ce26e2a425054eacd9d3f2f6d5188,
         type: 3}
       propertyPath: m_RootOrder

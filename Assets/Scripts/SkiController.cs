@@ -10,6 +10,8 @@ public class SkiController : MonoBehaviour
     private Vector2 lookDirection;
 
     public Rigidbody rb;
+    public Rigidbody rbFootL;
+    public Rigidbody rbFootR;
     public ConfigurableJoint hipJoint;
     public Transform head;
 
@@ -17,12 +19,14 @@ public class SkiController : MonoBehaviour
     public float addForceValue;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Move();
 
+        Move();
         //Commented this out for now whilst I deal with moving a bit
         //Look();
+
+
     }
 
 
@@ -37,6 +41,7 @@ public class SkiController : MonoBehaviour
         // Sets the movement direction from the value of the input value WASD
         movementDirection = value.Get<Vector2>();
 
+
     }
 
     public void OnLook(InputValue value)
@@ -50,8 +55,15 @@ public class SkiController : MonoBehaviour
         //transform.Translate(movementDirection.y * speed * Time.deltaTime * Vector3.forward);  This moves the player, but is not really want we want.
         //transform.Translate(movementDirection.x * speed * Time.deltaTime * Vector3.right);
 
-        rb.AddForce(movementDirection.y * addForceValue * Time.deltaTime * Vector3.forward);
-        rb.AddForce(movementDirection.x * addForceValue * Time.deltaTime * Vector3.right);
+        rbFootL.AddForce(movementDirection.y * addForceValue * Time.fixedDeltaTime * Vector3.forward);
+        rbFootL.AddForce(movementDirection.x * addForceValue * Time.fixedDeltaTime * Vector3.right);
+
+
+        //delay
+        //yield return new WaitForSeconds(1.0f);
+
+        rbFootR.AddForce(movementDirection.y * addForceValue * Time.fixedDeltaTime * Vector3.forward);
+        rbFootR.AddForce(movementDirection.x * addForceValue * Time.fixedDeltaTime * Vector3.right);
 
         Vector3 direction = new Vector3(movementDirection.x, 0f, movementDirection.y).normalized;
 
@@ -62,9 +74,10 @@ public class SkiController : MonoBehaviour
             //Not really sure what all this doing, I should get it explained... the targetAngle is deffo wrong here.
             this.hipJoint.targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
 
-            this.rb.AddForce(direction * speed * Time.fixedDeltaTime);
+            this.rb.AddForce(speed * Time.fixedDeltaTime * direction);
 
         }
+
     }
 
     public void Look()

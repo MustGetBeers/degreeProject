@@ -4,11 +4,14 @@ using System.Collections;
 
 public class SnowTerrain : MonoBehaviour
 {
+
+	//THIS WHOLE THING IS STRAIGHT UP PLAGIARISED.
+
 	Terrain m_terrain;
 	TerrainData m_beginData;
 	TerrainData m_tempData;
 
-	float m_snowDepth = 0.0004f;
+	public float m_snowDepth = 0.007f;
 
 	public int resolution { get { return m_tempData.heightmapResolution; } }
 
@@ -23,13 +26,14 @@ public class SnowTerrain : MonoBehaviour
 		m_tempData = Instantiate(m_beginData);
 		m_terrain.terrainData = m_tempData;
 
-		InvokeRepeating("Apply", 1f, 20f);
+		InvokeRepeating(nameof(Apply), 1f, 20f);
+
 	}
 
     [Obsolete]
     void Apply()
 	{
-        m_terrain.ApplyDelayedHeightmapModification();
+        m_terrain.terrainData.SyncHeightmap();
 	}
 	public bool InsideBounds(int coord) { return coord >= 0 && coord < m_tempData.heightmapResolution; }
 
@@ -52,6 +56,11 @@ public class SnowTerrain : MonoBehaviour
 		ClampToBounds(ref x, ref width, resize);
 		ClampToBounds(ref y, ref height, resize);
 	}
+
+	public void Hello()
+    {
+		Debug.Log("lol");
+    }
 
 	public void Dig(Vector3 world, Vector2 size)
 	{

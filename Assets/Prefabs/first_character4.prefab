@@ -471,9 +471,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50db3dba1ff53e943a94a9ce25ea3abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  snowTerrain: {fileID: 0}
   rb: {fileID: 7538443888353186081}
+  rbFootL: {fileID: 886304141050060869}
+  rbFootR: {fileID: 2755439715140506632}
   hipJoint: {fileID: 3020926648585427351}
+  head: {fileID: 1293347194209906358}
+  speed: 10
   addForceValue: 8000
 --- !u!114 &1787375280
 MonoBehaviour:
