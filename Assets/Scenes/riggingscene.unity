@@ -637,9 +637,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
-  m_LocalRotation: {x: 0.093711935, y: -0.000000116721864, z: -0.000000011354745,
-    w: 0.9955994}
-  m_LocalPosition: {x: -0.000000113616565, y: 5.4598985, z: 0.46299976}
+  m_LocalRotation: {x: -0.020028025, y: -0.0006496447, z: 0.00821842, w: 0.9997654}
+  m_LocalPosition: {x: 0.013342603, y: 3.6915138, z: -5.2308517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -813,7 +812,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 1710025685}
+  m_Follow: {fileID: 1858435436}
   m_Lens:
     FieldOfView: 80
     OrthographicSize: 10
@@ -840,7 +839,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226529585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.000000113616565, y: 5.4598985, z: 0.46299976}
+  m_LocalPosition: {x: 0.013342603, y: 3.6915138, z: -5.2308517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1007,7 +1006,7 @@ MonoBehaviour:
   ShoulderOffset: {x: 0, y: -0.4, z: 0.45}
   VerticalArmLength: 0
   CameraSide: 1
-  CameraDistance: 0
+  CameraDistance: 5.68
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 512
@@ -1032,12 +1031,6 @@ MonoBehaviour:
   m_AmplitudeGain: 1
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
---- !u!4 &1710025685 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1293347194209906358, guid: 210ce26e2a425054eacd9d3f2f6d5188,
-    type: 3}
-  m_PrefabInstance: {fileID: 790362367}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1772054659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,6 +1177,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1858435436 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5292980212021657176, guid: 210ce26e2a425054eacd9d3f2f6d5188,
+    type: 3}
+  m_PrefabInstance: {fileID: 790362367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1952840821
 GameObject:
   m_ObjectHideFlags: 0

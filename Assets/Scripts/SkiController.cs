@@ -26,6 +26,7 @@ public class SkiController : MonoBehaviour
         //Commented this out for now whilst I deal with moving a bit
         //Look();
 
+        Look();
 
     }
 
@@ -87,6 +88,9 @@ public class SkiController : MonoBehaviour
 
         float targetAngle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
 
-        head.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+        head.rotation = Quaternion.Euler(targetAngle, targetAngle, 0f);
+
+
+        Debug.Log(targetAngle);
     }
 }
