@@ -18,6 +18,34 @@ public class SkiController : MonoBehaviour
     public float speed;
     public float addForceValue;
 
+
+    //Procedural stuff under here
+    [SerializeField] private Transform[] _limbTargets;
+
+    private int _nLimbs;
+    private ProceduralLimb[] _limbs;
+
+    // This is all procedural stuff as well
+    private void Start()
+    {
+        _nLimbs = _limbTargets.Length;
+        _limbs = new ProceduralLimb[_nLimbs];
+        Transform t;
+        for (int i = 0; i < _nLimbs; ++i)
+        {
+            t = _limbTargets[i];
+            _limbs[i] = new ProceduralLimb()
+            {
+                IKTarget = t,
+                    defaultPosition = t.localPosition,
+                    lastPosition = t.position
+            };
+
+        }
+
+    }
+
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -90,7 +118,14 @@ public class SkiController : MonoBehaviour
 
         head.rotation = Quaternion.Euler(targetAngle, targetAngle, 0f);
 
+    }
 
-        Debug.Log(targetAngle);
+
+
+        class ProceduralLimb
+    {
+        public Transform IKTarget;
+        public Vector3 defaultPosition;
+        public Vector3 lastPosition;
     }
 }
