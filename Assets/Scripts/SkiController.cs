@@ -8,6 +8,8 @@ public class SkiController : MonoBehaviour
 
     private Vector2 movementDirection;
     private Vector2 lookDirection;
+    private float rightFootTrigger;
+    private float leftFootTrigger;
 
     public Rigidbody rb;
     public Rigidbody rbFootL;
@@ -19,32 +21,10 @@ public class SkiController : MonoBehaviour
     public float addForceValue;
 
 
-    //Procedural stuff under here
-    [SerializeField] private Transform[] _limbTargets;
-
-    private int _nLimbs;
-    private ProceduralLimb[] _limbs;
-
-    // This is all procedural stuff as well
     private void Start()
     {
-        _nLimbs = _limbTargets.Length;
-        _limbs = new ProceduralLimb[_nLimbs];
-        Transform t;
-        for (int i = 0; i < _nLimbs; ++i)
-        {
-            t = _limbTargets[i];
-            _limbs[i] = new ProceduralLimb()
-            {
-                IKTarget = t,
-                    defaultPosition = t.localPosition,
-                    lastPosition = t.position
-            };
-
-        }
-
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -52,24 +32,24 @@ public class SkiController : MonoBehaviour
 
         Move();
         //Commented this out for now whilst I deal with moving a bit
-        //Look();
-
         Look();
+
+        RightFoot();
+        LeftFoot();
 
     }
 
 
-    public void OnFire()
+    public void OnJump()
     {
         rb.AddForce(Vector3.up * addForceValue, ForceMode.Force);
-    
+
     }
 
     public void OnMove(InputValue value)
     {
-        // Sets the movement direction from the value of the input value WASD
+        // Sets the movement direction from the value of the input value WASD, or left thumbstick
         movementDirection = value.Get<Vector2>();
-
 
     }
 
@@ -78,54 +58,79 @@ public class SkiController : MonoBehaviour
         lookDirection = value.Get<Vector2>();
     }
 
+    public void OnRightFoot(InputValue value)
+    {
+        rightFootTrigger = value.Get<float>();
+    }
+
+    public void OnLeftFoot(InputValue value)
+    {
+        leftFootTrigger = value.Get<float>();
+
+    }
+
+
     public void Move()
     {
-        // Moves the player
-        //transform.Translate(movementDirection.y * speed * Time.deltaTime * Vector3.forward);  This moves the player, but is not really want we want.
+        //Moves the player, This moves the player, but is not really want we want.
+        //transform.Translate(movementDirection.y * speed * Time.deltaTime * Vector3.forward);
         //transform.Translate(movementDirection.x * speed * Time.deltaTime * Vector3.right);
 
-        rbFootL.AddForce(movementDirection.y * addForceValue * Time.fixedDeltaTime * Vector3.forward);
-        rbFootL.AddForce(movementDirection.x * addForceValue * Time.fixedDeltaTime * Vector3.right);
+        //rbFootL.AddForce(movementDirection.y * addForceValue * Time.fixedDeltaTime * Vector3.forward);
+        //rbFootL.AddForce(movementDirection.x * addForceValue * Time.fixedDeltaTime * Vector3.right);
 
-
+        // Getting the x component of the movementDirection vector2, which is from the left thumbstick input for moving. Rotating the left foot based on that??
+        rbFootL.transform.Rotate(0, -movementDirection.x * (1+ leftFootTrigger), 0);
+        rbFootL.transform.Rotate(-movementDirection.y * (1 + leftFootTrigger), 0, 0);
         //delay
         //yield return new WaitForSeconds(1.0f);
 
-        rbFootR.AddForce(movementDirection.y * addForceValue * Time.fixedDeltaTime * Vector3.forward);
-        rbFootR.AddForce(movementDirection.x * addForceValue * Time.fixedDeltaTime * Vector3.right);
+        //rbFootR.AddForce(movementDirection.y * addForceValue * Time.fixedDeltaTime * Vector3.forward);
+        //rbFootR.AddForce(movementDirection.x * addForceValue * Time.fixedDeltaTime * Vector3.right);
 
-        Vector3 direction = new Vector3(movementDirection.x, 0f, movementDirection.y).normalized;
 
-        if (direction.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+        //I think this stuff is about direction ?
+        //Vector3 direction = new Vector3(movementDirection.x, movementDirection.x, movementDirection.y).normalized;
 
-            //Not really sure what all this doing, I should get it explained... the targetAngle is deffo wrong here.
-            this.hipJoint.targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
+        //if (direction.magnitude >= 0.1f)
+        //{
+        //    //float targetAngle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
 
-            this.rb.AddForce(speed * Time.fixedDeltaTime * direction);
+        //    //Not really sure what all this doing, I should get it explained... the targetAngle is deffo wrong here.
+        //    //this.hipJoint.targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
 
-        }
+        //    this.rb.AddTorque(speed * Time.fixedDeltaTime * direction);
+
+        //}
 
     }
 
     public void Look()
     {
 
-        Vector3 direction = new Vector3(lookDirection.x, 0f, lookDirection.y).normalized;
+        //Vector3 direction = new Vector3(lookDirection.x, 0f, lookDirection.y).normalized;
 
-        float targetAngle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+        //float targetAngle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
 
-        head.rotation = Quaternion.Euler(targetAngle, targetAngle, 0f);
+        //head.rotation = Quaternion.Euler(targetAngle, targetAngle, 0f);
+
+        //Doing the same thing as the Move() method, but for right foot and right thumbstick instead of left.
+        rbFootR.transform.Rotate(0, -lookDirection.x * (1+rightFootTrigger), 0);
+
 
     }
 
-
-
-        class ProceduralLimb
+    public void RightFoot()
     {
-        public Transform IKTarget;
-        public Vector3 defaultPosition;
-        public Vector3 lastPosition;
+
+        rbFootR.AddRelativeForce(rightFootTrigger * addForceValue * Time.fixedDeltaTime * -rbFootR.transform.up);
+
+    }
+
+    public void LeftFoot()
+    {
+
+        rbFootL.AddRelativeForce(leftFootTrigger * addForceValue * Time.fixedDeltaTime * rbFootR.transform.up);
+
     }
 }
