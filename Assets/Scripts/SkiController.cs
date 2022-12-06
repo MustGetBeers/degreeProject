@@ -15,10 +15,14 @@ public class SkiController : MonoBehaviour
     public Rigidbody rbFootL;
     public Rigidbody rbFootR;
     public ConfigurableJoint hipJoint;
-    public Transform basePlayerTransform;
+    //public Transform basePlayerTransform;
+    public Transform leftFootLookAtPoint;
+    public Transform rightFootLookAtPoint;
+
 
     public float speed;
     public float addForceValue;
+    public Vector3 help;
 
 
     private void Start()
@@ -38,6 +42,7 @@ public class SkiController : MonoBehaviour
         LeftFoot();
 
         WTF();
+        LookATME();
 
     }
 
@@ -118,14 +123,14 @@ public class SkiController : MonoBehaviour
     public void RightFoot()
     {
 
-        rbFootR.AddRelativeForce(rightFootTrigger * addForceValue * Time.fixedDeltaTime * -rbFootR.transform.up);
+        rbFootR.AddRelativeForce(rightFootTrigger * addForceValue * Time.fixedDeltaTime * -Vector3.forward);
 
     }
 
     public void LeftFoot()
     {
 
-        rbFootL.AddRelativeForce(leftFootTrigger * addForceValue * Time.fixedDeltaTime * rbFootR.transform.up);
+        rbFootL.AddRelativeForce(leftFootTrigger * addForceValue * Time.fixedDeltaTime * -Vector3.forward);
 
     }
 
@@ -144,4 +149,22 @@ public class SkiController : MonoBehaviour
             rb.MoveRotation(rb.rotation * deltaRotation);
         }
     }
+
+    public void LookATME()
+    {
+        Vector3 direction = (leftFootLookAtPoint.position - rightFootLookAtPoint.position).normalized;
+
+        float distance = Vector3.Distance(leftFootLookAtPoint.position, rightFootLookAtPoint.position);
+
+        Vector3 lookAtPoint = (rightFootLookAtPoint.position + (direction * (distance / 2)));
+
+        Vector3 lookAtDirection = (lookAtPoint - rb.position).normalized;
+        lookAtDirection.y = 0;
+        lookAtDirection.Normalize();
+
+        rb.rotation = Quaternion.LookRotation(lookAtDirection, Vector3.up);
+
+    }
+
+
 }
