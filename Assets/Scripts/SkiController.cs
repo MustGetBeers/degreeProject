@@ -41,7 +41,7 @@ public class SkiController : MonoBehaviour
         RightFoot();
         LeftFoot();
 
-        WTF();
+       // WTF();
         LookATME();
 
     }
@@ -117,6 +117,7 @@ public class SkiController : MonoBehaviour
 
         //Doing the same thing as the Move() method, but for right foot and right thumbstick instead of left.
         rbFootR.transform.Rotate(0, -lookDirection.x * (1 + rightFootTrigger), 0);
+        rbFootR.transform.Rotate(-lookDirection.y * (1 + rightFootTrigger), 0, 0);
 
     }
 

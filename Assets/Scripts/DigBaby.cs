@@ -13,7 +13,7 @@ public class DigBaby : MonoBehaviour
     private void Update()
     {
         legPos = transform.position;
-        legSize = new Vector2(4f, 4f);
+        legSize = new Vector2(legSize.x, legSize.y);
     }
 
     private void FixedUpdate()
@@ -24,9 +24,7 @@ public class DigBaby : MonoBehaviour
     public void OnDig()
     {
         snowTerrain.Dig(legPos, legSize);
-        snowTerrain.Hello();
 
-        Debug.Log(legPos);
     }
 
 }

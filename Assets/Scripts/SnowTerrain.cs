@@ -57,10 +57,6 @@ public class SnowTerrain : MonoBehaviour
 		ClampToBounds(ref y, ref height, resize);
 	}
 
-	public void Hello()
-    {
-		Debug.Log("lol");
-    }
 
 	public void Dig(Vector3 world, Vector2 size)
 	{
