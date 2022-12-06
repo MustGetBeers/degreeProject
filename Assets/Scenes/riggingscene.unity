@@ -229,6 +229,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2087823396, guid: a6135222dc950b84a84781ea6887cf62, type: 3}
+      propertyPath: m_XMotion
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2087823396, guid: a6135222dc950b84a84781ea6887cf62, type: 3}
       propertyPath: m_ConnectedBody
       value: 
       objectReference: {fileID: 0}
@@ -331,6 +335,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5392390208360952472, guid: a6135222dc950b84a84781ea6887cf62,
+        type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1582917425}
     - target: {fileID: 5392390208360952472, guid: a6135222dc950b84a84781ea6887cf62,
         type: 3}
       propertyPath: head
@@ -780,7 +789,7 @@ MonoBehaviour:
   rbFootL: {fileID: 24047825}
   rbFootR: {fileID: 211146728}
   hipJoint: {fileID: 1877251459}
-  head: {fileID: 769927582}
+  basePlayerTransform: {fileID: 790736222}
   speed: 1
   addForceValue: 4000
 --- !u!114 &790736218
@@ -910,6 +919,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!4 &790736222 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3334817344821571310, guid: a6135222dc950b84a84781ea6887cf62,
+    type: 3}
+  m_PrefabInstance: {fileID: 65327515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,6 +1409,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1582917425 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 8356538691765089512, guid: a6135222dc950b84a84781ea6887cf62,
+    type: 3}
+  m_PrefabInstance: {fileID: 65327515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1628798058
 GameObject:
   m_ObjectHideFlags: 0

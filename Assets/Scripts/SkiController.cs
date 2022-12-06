@@ -15,7 +15,7 @@ public class SkiController : MonoBehaviour
     public Rigidbody rbFootL;
     public Rigidbody rbFootR;
     public ConfigurableJoint hipJoint;
-    public Transform head;
+    public Transform basePlayerTransform;
 
     public float speed;
     public float addForceValue;
@@ -36,6 +36,8 @@ public class SkiController : MonoBehaviour
 
         RightFoot();
         LeftFoot();
+
+        WTF();
 
     }
 
@@ -80,7 +82,7 @@ public class SkiController : MonoBehaviour
         //rbFootL.AddForce(movementDirection.x * addForceValue * Time.fixedDeltaTime * Vector3.right);
 
         // Getting the x component of the movementDirection vector2, which is from the left thumbstick input for moving. Rotating the left foot based on that??
-        rbFootL.transform.Rotate(0, -movementDirection.x * (1+ leftFootTrigger), 0);
+        rbFootL.transform.Rotate(0, -movementDirection.x * (1 + leftFootTrigger), 0);
         rbFootL.transform.Rotate(-movementDirection.y * (1 + leftFootTrigger), 0, 0);
         //delay
         //yield return new WaitForSeconds(1.0f);
@@ -108,15 +110,8 @@ public class SkiController : MonoBehaviour
     public void Look()
     {
 
-        //Vector3 direction = new Vector3(lookDirection.x, 0f, lookDirection.y).normalized;
-
-        //float targetAngle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-
-        //head.rotation = Quaternion.Euler(targetAngle, targetAngle, 0f);
-
         //Doing the same thing as the Move() method, but for right foot and right thumbstick instead of left.
-        rbFootR.transform.Rotate(0, -lookDirection.x * (1+rightFootTrigger), 0);
-
+        rbFootR.transform.Rotate(0, -lookDirection.x * (1 + rightFootTrigger), 0);
 
     }
 
@@ -132,5 +127,21 @@ public class SkiController : MonoBehaviour
 
         rbFootL.AddRelativeForce(leftFootTrigger * addForceValue * Time.fixedDeltaTime * rbFootR.transform.up);
 
+    }
+
+    public void WTF()
+    {
+        Vector3 direction = new Vector3(movementDirection.x, movementDirection.x, movementDirection.y).normalized;
+
+        if (direction.magnitude >= 0.1f)
+        {
+
+            //basePlayerTransform.Rotate(0f, direction.y, 0f);
+
+            //basePlayerTransform.Rotate(0f, rbFootL.rotation.y, 0f);
+
+            Quaternion deltaRotation = Quaternion.Euler(0f, rbFootL.rotation.y, 0f);
+            rb.MoveRotation(rb.rotation * deltaRotation);
+        }
     }
 }
