@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class SkiController : MonoBehaviour
 {
+    public GameObject gameManager;
 
     private Vector2 movementDirection;
     private Vector2 lookDirection;
@@ -27,7 +28,7 @@ public class SkiController : MonoBehaviour
 
     private void Start()
     {
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        //UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -73,6 +74,12 @@ public class SkiController : MonoBehaviour
     public void OnLeftFoot(InputValue value)
     {
         leftFootTrigger = value.Get<float>();
+
+    }
+
+    private void OnRestart()
+    {
+        gameManager.GetComponent<GameManager>().Restarting();
 
     }
 
