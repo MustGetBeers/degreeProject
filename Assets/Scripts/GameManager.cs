@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject canvas;
+    public GameObject mainMenuPanel;
+    public GameObject timerPanel;
+    public GameObject endingPanel;
     public GameObject highScoreValue;
     public bool showMenu = true;
 
@@ -41,7 +43,11 @@ public class GameManager : MonoBehaviour
     {
         if (showMenu == true)
         {
-            ShowCanvas();
+            ShowMainMenu();
+        }
+        else
+        {
+            StartGame();
         }
 
 
@@ -49,19 +55,20 @@ public class GameManager : MonoBehaviour
 
 
     //update canvas etc.
-    void ShowCanvas()
+    void ShowMainMenu()
     {
         Cursor.visible = true;
         Time.timeScale = 0f;
-        canvas.SetActive(true);
+        mainMenuPanel.SetActive(true);
         TextMeshProUGUI scoreValue = highScoreValue.GetComponent<TextMeshProUGUI>();
         scoreValue.text = "1000".ToString();
     }
 
     public void StartGame()
     {
-        canvas.SetActive(false);
+        mainMenuPanel.SetActive(false);
         Time.timeScale = 1f;
+        timerPanel.SetActive(true);
     }
 
     public void QuitGame()

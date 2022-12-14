@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class SkiController : MonoBehaviour
 {
-    public GameObject gameManager;
+    private GameObject gameManager;
 
     private Vector2 movementDirection;
     private Vector2 lookDirection;
@@ -29,6 +29,9 @@ public class SkiController : MonoBehaviour
     private void Start()
     {
         //UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+
+        //Nice way to find the gamemanager class (the instanced one, I guess) and set that as the gameManager reference for this player
+        gameManager = GameManager.Instance.gameObject;
     }
 
     // Update is called once per frame
